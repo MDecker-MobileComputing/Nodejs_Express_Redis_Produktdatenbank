@@ -1,5 +1,7 @@
 import createLogger from "logging";
 
+import { getProdukt } from "./datenbank.js";
+
 
 const logger = createLogger( "controller" );
 
@@ -13,7 +15,7 @@ export function routenRegistrieren( expressObjekt ) {
 
     const pfad = "/p/:produktnr";
     expressObjekt.get( pfad, getProduktdaten );
-    logger.info(`Route registriert: GET ${pfad}`);
+    logger.info( `Route registriert: GET ${pfad}` );
 };
 
 
@@ -24,8 +26,20 @@ function getProduktdaten( request, response ) {
 
     const produktNummer = request.params.produktnr;
 
-    response.render( "gefunden", {
-        produktnr: produktNummer
-    });
+    const produkt = getProdukt( produktNummer );
+    if ( produkt ) {
 
+        response.render( "gefunden", {
+            produktnr   : produktNummer,
+            titel       : produkt.produktTitel,
+            beschreibung: produkt.produktBeschreibung,
+            preis       : produkt.preis
+        });
+
+    } else {
+
+        response.render( "nicht_gefunden", {
+            produktnr: produktNummer
+        });        
+    }
 }
