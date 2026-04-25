@@ -1,0 +1,14 @@
+{
+  "type": "module",
+  "dependencies": {
+    "cross-env": "^10.1.0",
+    "express": "^4.22.1",
+    "express-nunjucks": "^3.1.2",
+    "logging": "^4.2.0"
+  },
+    "scripts": {
+      "start": "cross-env PORTNUMMER=8080 node src/main.js",
+      "start1": "cross-env PORTNUMMER=8080 node src/main.js",
+      "start2": "cross-env PORTNUMMER=8090 node src/main.js"
+    }
+}
