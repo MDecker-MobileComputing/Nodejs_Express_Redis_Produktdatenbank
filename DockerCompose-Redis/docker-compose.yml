@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:8.6.2 # https://hub.docker.com/_/redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
