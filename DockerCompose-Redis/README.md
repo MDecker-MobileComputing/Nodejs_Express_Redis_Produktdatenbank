@@ -32,13 +32,14 @@ Nach einer Verbindung kann über "CLI" unten auch ein Kommandozeilenfenster geö
 
 <br>
 
-Die von der Anwendung gespeicherten Zählerwerte sind technisch gesehen String (die aber nur Ziffern enthalten dürfen):
+Die von der Anwendung gespeicherten Zählerwerte sind technisch gesehen Strings (die aber nur Ziffern enthalten dürfen):
 
 ![Screenshot: Zählerwerte](redis-insight_screenshot_3_AlleStringWerte.png)
 
-Nach Klick auf einen Key in der linken Seite der Oberfläche wird in der rechten Seite der Oberfläche der jeweilige Wert angezeigt.
-Die Zählerwerte für die erfolgreichen Abrufe von Produktdetails haben alle das Form `produktaufrufe:<produktnr>` (z.B. `produktaufrufe:111`), deshalb werden diese in
-einem Ordner "produktaufrufe" dargestellt, der aufgeklappt werden muss. 
+Nach Klick auf einen Key in der linken Seite der Oberfläche wird in der rechten Seite der jeweilige Wert angezeigt.
+Die Zählerwerte für die erfolgreichen Abrufe von Produktdetails haben alle die Form `produktaufrufe:<produktnr>` 
+(z.B. `produktaufrufe:111`), deshalb werden diese in einem Ordner "produktaufrufe" dargestellt, der aufgeklappt 
+werden muss. 
 
 <br>
 
