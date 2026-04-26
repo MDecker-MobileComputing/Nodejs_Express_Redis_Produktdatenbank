@@ -1,7 +1,8 @@
 import createLogger from "logging";
 
 import { getProdukt } from "./datenbank.js";
-
+import { inkrementPageImpressionZaehler, 
+         inkrementProduktNichtGefundenZaehler } from "./redis-client.js";
 
 const logger = createLogger( "controller" );
 
@@ -22,12 +23,15 @@ export function routenRegistrieren( expressObjekt ) {
 /**
  * Callback-Funktion für GET-Request zum Abruf der Produktdetails.
  */
-function getProduktdaten( request, response ) {
+async function getProduktdaten( request, response ) {
 
     const produktNummer = request.params.produktnr;
 
     const produkt = getProdukt( produktNummer );
     if ( produkt ) {
+
+        const zaehlerWert = await inkrementPageImpressionZaehler( produktNummer );
+        logger.info( `Page-Impression-Zähler für Produkt ${produktNummer} inkrementiert, aktueller Wert: ${zaehlerWert}` );
 
         response.render( "gefunden", {
             produktnr   : produktNummer,
@@ -37,6 +41,8 @@ function getProduktdaten( request, response ) {
         });
 
     } else {
+
+        await inkrementProduktNichtGefundenZaehler();
 
         response.render( "nicht_gefunden", {
             produktnr: produktNummer

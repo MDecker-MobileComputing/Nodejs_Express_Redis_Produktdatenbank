@@ -7,3 +7,11 @@ services:
     ports:
       - "6379:6379"
     restart: unless-stopped
+
+  # Web-UI for Redis: https://redis.io/insight/
+  # Überblick weitere Redis-UIs: https://uibakery.io/blog/redis-gui-tools
+  redisinsight:
+    image: redis/redisinsight:3.4 # https://hub.docker.com/r/redislabs/redisinsight
+    container_name: redisinsight-produktdatenbank
+    ports:
+      - "5540:5540"

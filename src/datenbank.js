@@ -40,7 +40,8 @@ export function getProdukt( produktNummer ) {
     const produktRecord = produktMap[ produktNummer ];
     if ( produktRecord ) {
 
-        logger.info( `Produkt mit Nr ${produktNummer} gefunden: ${produktRecord.produktTitel}` );
+        logger.info( 
+            `Details für Produkt mit Nr ${produktNummer} abgerufen: ${produktRecord.produktTitel}` );
         return produktRecord;
 
     } else {

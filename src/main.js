@@ -2,6 +2,8 @@ import express         from "express";
 import expressNunjucks from "express-nunjucks";
 import createLogger    from "logging";
 
+import { initRedisClient } from "./redis-client.js";
+
 import { routenRegistrieren } from "./controller.js";
 
 const logger = createLogger( "main" );
@@ -16,12 +18,16 @@ if ( isNaN( PORTNUMMER ) ) {
 }
 
 
+await initRedisClient();
+
 const expressObjekt = express();
 expressObjekt.use( express.static( "public_html" ) );
 routenRegistrieren( expressObjekt );
 
 expressObjekt.set( "views" , "templates/" );
-expressNunjucks( expressObjekt, { watch: true, noCache: true }); // bei jedem Request neu laden, damit Änderungen sofort sichtbar sind
+expressNunjucks( expressObjekt, { watch  : true, 
+                                  noCache: true 
+                                }); // bei jedem Request neu laden, damit Änderungen sofort sichtbar sind
 
 expressObjekt.listen( PORTNUMMER,
                       () => { logger.info(`Web-Server auf Port ${PORTNUMMER} gestartet.\n`); }
