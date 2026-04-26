@@ -92,6 +92,22 @@ incrBy zaehler 3
 ```
 Der neue Zählerwert wird zurückgegeben; die Variable wird bei Bedarf angelegt.
 
+<br>
+
+Abfragen, wie lange die Restlebenszeit von einem Key-Value-Paar mit Verfallsdatum ist:
+```
+ttl umrechnungskurs:EUR
+```
+Wenn kein Ablaufzeitpunkt für das Key-Value-Paar gesetzt ist, dann gibt der Befehl `-1` zurück;
+wenn der Key nicht gefunden wird, dann gibt der Befehl `-1` zurück.
+
+<br>
+
+Die Lebenszeit eines Key-Value-Paars kann beim Setzen oder auch nachträglich gesetzt werden:
+```
+SET meinkey "some value" EX 60
+EXPIRE meinkey 120
+```
 
 <br>
 
