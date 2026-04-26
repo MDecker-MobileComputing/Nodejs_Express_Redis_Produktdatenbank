@@ -15,7 +15,7 @@
       </tr>
       {% for eintrag in produktaufrufe %}
       <tr>
-          <td>{{ eintrag[0] }}</td>
+          <td><a href="/p/{{ eintrag[0] }}">{{ eintrag[0] }}</a></td>
           <td>{{ eintrag[1] }}</td>
       </tr>
       {% endfor %}

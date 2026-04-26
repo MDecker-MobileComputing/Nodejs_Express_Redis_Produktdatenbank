@@ -88,10 +88,14 @@ export async function getAllProduktaufrufe() {
 
     const anzahlAufrufString = werteArray[i];
     const anzahlAufrufNumber = parseInt( anzahlAufrufString );
-    
-    ergebnisArray.push( [ produktNrNumber, anzahlAufrufNumber ] );
+
+    const zweierArray = [ produktNrNumber, anzahlAufrufNumber ];
+    ergebnisArray.push( zweierArray );
   }
   
+ // Array nach Zahl in erster Komponente sortieren, d.h. nach Produktnummern aufsteigend sortieren
+  ergebnisArray.sort( ( a, b ) => a[0] - b[0] );
+
   return ergebnisArray;
 }
  

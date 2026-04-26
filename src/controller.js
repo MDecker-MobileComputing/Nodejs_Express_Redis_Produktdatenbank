@@ -43,8 +43,8 @@ async function getProduktdaten( request, response ) {
             `Page-Impression-Zähler für Produkt ${produktNummer} inkrementiert, aktueller Wert: ${zaehlerWert}` );
 
         response.render( "gefunden", {
-            produktnr   : produktNummer,
-            titel       : produkt.produktTitel,
+            seitentitel : `Details für Produkt mit Nr ${produktNummer}`,
+            produktname : produkt.produktTitel,
             beschreibung: produkt.produktBeschreibung,
             preis       : produkt.preis,
             zaehler     : zaehlerWert
@@ -57,8 +57,8 @@ async function getProduktdaten( request, response ) {
             `"Produkt nicht gefunden"-Zähler inkrementiert, aktueller Wert: ${zaehlerWert}` );
 
         response.render( "nicht_gefunden", {
-            produktnr: produktNummer,
-            zaehler  : zaehlerWert
+            seitentitel: `Produkt mit Nummer ${produktNummer} nicht gefunden`,
+            zaehler  :  zaehlerWert
         });        
     }
 }
