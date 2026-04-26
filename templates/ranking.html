@@ -1,0 +1,26 @@
+{% extends "basis.html" %}
+
+{% block inhalt %}
+
+{% if produktaufrufe.length == 0 %}
+
+  <p>Noch keine Produktaufrufe vorhanden.</p>
+
+{% else %}
+
+  <table>
+      <tr>
+          <th>Produktnummer</th>
+          <th>Anzahl Aufrufe</th>
+      </tr>
+      {% for eintrag in produktaufrufe %}
+      <tr>
+          <td>{{ eintrag[0] }}</td>
+          <td>{{ eintrag[1] }}</td>
+      </tr>
+      {% endfor %}
+  </table>
+
+{% endif %}
+
+{% endblock %}

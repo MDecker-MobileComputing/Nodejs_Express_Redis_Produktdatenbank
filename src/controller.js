@@ -1,8 +1,12 @@
 import createLogger from "logging";
 
 import { getProdukt } from "./datenbank.js";
-import { inkrementPageImpressionZaehler, 
-         inkrementProduktNichtGefundenZaehler } from "./redis-client.js";
+
+import { 
+         inkrementPageImpressionZaehler, 
+         inkrementProduktNichtGefundenZaehler,
+         getAllProduktaufrufe 
+       } from "./redis-client.js";
 
 const logger = createLogger( "controller" );
 
@@ -14,9 +18,13 @@ const logger = createLogger( "controller" );
  */
 export function routenRegistrieren( expressObjekt ) {
 
-    const pfad = "/p/:produktnr";
-    expressObjekt.get( pfad, getProduktdaten );
-    logger.info( `Route registriert: GET ${pfad}` );
+    const pfad1 = "/p/:produktnr";
+    expressObjekt.get( pfad1, getProduktdaten );
+    logger.info( `Route registriert: GET ${pfad1}` );
+
+    const pfad2 = "/ranking";
+    expressObjekt.get( pfad2, getProduktRanking );
+    logger.info( `Route registriert: GET ${pfad2}` );
 };
 
 
@@ -53,4 +61,22 @@ async function getProduktdaten( request, response ) {
             zaehler  : zaehlerWert
         });        
     }
+}
+
+
+/**
+ * Callback-Funktion für GET-Request zum Abruf des Rankings der Produktaufrufe. 
+ * 
+ * @param {*} request Wird nicht ausgewertet
+ * 
+ * @param {*} response Template "ranking" rendern mit allen Produktaufrufen als 
+ *                     Array von Arrays übergeben 
+ */
+async function getProduktRanking( request, response ) {
+
+    const produktaufrufe = await getAllProduktaufrufe();
+
+    response.render( "ranking", {
+            produktaufrufe: produktaufrufe
+    });
 }

@@ -59,11 +59,12 @@ export async function inkrementProduktNichtGefundenZaehler() {
  * Alle Zählerwerte für Produktaufrufe abrufen. Hierzu werden alle Keys, die mit
  * `"produktaufrufe:` beginnen, abgefragt und die zugehörigen Werte ausgelesen.
  * 
- * @returns {Promise<Object>} Objekt mit Key-Value-Paaren aller Produktaufrufe.
- *                            Beispiel, wenn es nur Produkte mit den Nummern `111` und `222` gibt:
- *                            `{ "111": 42, "222": 7 }`;
- *                            Objekt kann leer sein (aber nicht `null`), wenn es noch überhaupt
- *                            keine Produktaufrufe gibt.
+ * @returns {Promise<Array>} 2-dimensionaler Array aller Produktaufrufe.
+ *                           Jedes Element ist ein Array mit zwei Komponenten:
+ *                           Index 0: Produktnummer (String), Index 1: Anzahl Aufrufe (Number).
+ *                           Beispiel, wenn es nur Produkte mit den Nummern `111` und `222` gibt:
+ *                           `[ [111, 42], [222, 7] ]`;
+ *                           Array kann leer sein, wenn es noch überhaupt keine Produktaufrufe gibt.
  */
 export async function getAllProduktaufrufe() {
   
@@ -72,19 +73,25 @@ export async function getAllProduktaufrufe() {
   
   if ( schluesselArray.length === 0 ) {
 
-    return {};
+    return [];
   }
   
   const werteArray = 
       await redisClient.mGet( schluesselArray );  
   
-  const ergebnisObjekt = {};
+  const ergebnisArray = [];
   for ( let i = 0; i < schluesselArray.length; i++ ) {
 
-    const key  = schluesselArray[i].split( ":" )[ 1 ];
-    const wert = werteArray[i];
-    ergebnisObjekt[ key ] = parseInt( wert );
+    const schluessel      = schluesselArray[i];
+    const produktNrString = schluessel.split( ":" )[ 1 ];
+    const produktNrNumber = parseInt( produktNrString );
+
+    const anzahlAufrufString = werteArray[i];
+    const anzahlAufrufNumber = parseInt( anzahlAufrufString );
+    
+    ergebnisArray.push( [ produktNrNumber, anzahlAufrufNumber ] );
   }
   
-  return ergebnisObjekt;
+  return ergebnisArray;
 }
+ 
