@@ -77,6 +77,7 @@ async function getProduktRanking( request, response ) {
     const produktaufrufe = await getAllProduktaufrufe();
 
     response.render( "ranking", {
+            seitentitel: "Ranking der Produktaufrufe",
             produktaufrufe: produktaufrufe
     });
 }
