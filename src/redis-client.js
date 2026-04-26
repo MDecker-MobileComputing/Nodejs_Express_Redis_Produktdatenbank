@@ -1,8 +1,6 @@
 import { createClient } from "redis";
 import createLogger     from "logging";
 
-import { routenRegistrieren } from "./controller.js";
-
 const logger = createLogger( "redis-client" );
 
 
