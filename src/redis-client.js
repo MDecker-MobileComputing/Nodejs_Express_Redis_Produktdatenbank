@@ -20,8 +20,8 @@ export async function initRedisClient() {
   redisClient 
           = await createClient().
                     on( "error",        (fehler) => logger.info(( `Fehler bei Aufbau Verbindung zu Redis-Server: ${fehler}`) ).
-                    on( "connect",      () => logger.info( "Verbindung zum Redis-Server wird aufgebaut ..." ) ).
-                    on( "ready",        () => logger.info( "Verbindung zum Redis-Server hergestellt." ) ).
+                    on( "connect",      () => logger.info( "Verbindung zum Redis-Server wird aufgebaut ..." ) ). // funktioniert nicht?
+                    on( "ready",        () => logger.info( "Verbindung zum Redis-Server hergestellt." ) ).       // funktioniert nicht?
                     on( "reconnecting", () => logger.info( "Verbindung zum Redis-Server wird wiederhergestellt ..." ) ).
                     on( "end",          () => logger.info( "Verbindung zum Redis-Server wurde geschlossen." ) ) ).
                     connect();

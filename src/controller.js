@@ -31,21 +31,26 @@ async function getProduktdaten( request, response ) {
     if ( produkt ) {
 
         const zaehlerWert = await inkrementPageImpressionZaehler( produktNummer );
-        logger.info( `Page-Impression-Zähler für Produkt ${produktNummer} inkrementiert, aktueller Wert: ${zaehlerWert}` );
+        logger.info( 
+            `Page-Impression-Zähler für Produkt ${produktNummer} inkrementiert, aktueller Wert: ${zaehlerWert}` );
 
         response.render( "gefunden", {
             produktnr   : produktNummer,
             titel       : produkt.produktTitel,
             beschreibung: produkt.produktBeschreibung,
-            preis       : produkt.preis
+            preis       : produkt.preis,
+            zaehler     : zaehlerWert
         });
 
     } else {
 
-        await inkrementProduktNichtGefundenZaehler();
+        const zaehlerWert = await inkrementProduktNichtGefundenZaehler();
+        logger.info( 
+            `"Produkt nicht gefunden"-Zähler inkrementiert, aktueller Wert: ${zaehlerWert}` );
 
         response.render( "nicht_gefunden", {
-            produktnr: produktNummer
+            produktnr: produktNummer,
+            zaehler  : zaehlerWert
         });        
     }
 }
