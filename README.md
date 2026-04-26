@@ -1,9 +1,11 @@
-# Nodejs mit Redis #
+# Nodejs mit Redis: Produktdaten #
 
 <br>
 
 Die Repo enthält eine einfache Nodejs-Anwendung mit Express.js, die die Verwendung der In-Memory-Datenbank 
-[Redis](https://redis.io/de/) demonstriert.
+[Redis](https://redis.io/de/) demonstriert. In einer Redis-Datenbank werden Zähler für die Aufrufe der
+Produktseiten verwaltet sowie von einer externen REST-API abgerufene Wechselkurse für Fremdwährungen
+gecacht. 
 
 <br>
 
