@@ -39,7 +39,7 @@ export async function initRedisClient() {
 export async function inkrementPageImpressionZaehler( produktNr ) {
   
   const zaehlerName = `produktaufrufe:${produktNr}`;
-  return redisClient.incr( zaehlerName );
+  return await redisClient.incr( zaehlerName );
 }
 
 
@@ -51,7 +51,7 @@ export async function inkrementPageImpressionZaehler( produktNr ) {
  */
 export async function inkrementProduktNichtGefundenZaehler() {
 
-  return redisClient.incr( "produktNichtGefunden" );
+  return await redisClient.incr( "produktNichtGefunden" );
 }
 
 
@@ -99,3 +99,41 @@ export async function getAllProduktaufrufe() {
   return ergebnisArray;
 }
  
+
+/**
+ * Ruft den Wechselkurs für eine spezifische Fremdwährung aus dem Cache ab.
+ * 
+ * @param {string} fremdwaehrung, z.B. "USD" oder "GBP", muss auf Großbuchstaben normiert sein
+ * 
+ * @returns Wechselkurs von Euro in angegebene Fremdwährung (cache hit) oder `NaN`, wenn kein Wechselkurs 
+ *          im Cache gefunden wurde (cache miss)
+ */
+export async function getWechselkurs( fremdwaehrung ) {
+
+  const cacheKey = `umrechnungskurs:${fremdwaehrung}`;
+  return await redisClient.get( cacheKey );
+}
+
+
+/**
+ * Speichert den Wechselkurs für eine spezifische Fremdwährung im Cache.
+ * Der Wert wird 24 Stunden lang im Cache gehalten, danach verfällt er automatisch, weil
+ * die Frankfurter-API nur tagesaktuelle Wechselkurse liefert.
+ * 
+ * @param {string} fremdwaehrung, z.B. "USD" oder "GBP", muss auf Großbuchstaben normiert sein
+ * 
+ * @param {number} wechselkurs Wechselkurs von Euro in die angegebene Fremdwährung
+ * 
+ * @returns {Promise<boolean>} `true`, wenn der Wechselkurs erfolgreich im Cache gespeichert wurde, sonst `false`
+ */
+export async function setWechselkurs( fremdwaehrung, wechselkurs ) {
+
+  const cacheKey = `umrechnungskurs:${fremdwaehrung}`;
+
+  const cacheKonfig = { EX: 24*3600 }; // EX: Expire time in seconds, hier: 24 Stunden
+                            
+  return await redisClient.set( 
+                          cacheKey, 
+                          wechselkurs.toString(), 
+                          cacheKonfig );
+}

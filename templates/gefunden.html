@@ -13,8 +13,17 @@
     </tr>
     <tr>
         <th>Preis</th>
-        <td>{{ preis }} €</td>
+        <td>
+            {{ preisEuro }} €
+        </td>
     </tr>
+    <tr>
+        <th>Umrechnung</th>
+        <td>
+            <a href="/umrechnen/usd/{{ preisEuro }}">Preis in USD umrechnen</a> |
+            <a href="/umrechnen/gbp/{{ preisEuro }}">Preis in GBP umrechnen</a>
+        </td>
+    </tr>    
 </table>
 
 <br>
