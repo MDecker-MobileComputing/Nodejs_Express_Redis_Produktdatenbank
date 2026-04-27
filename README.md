@@ -2,10 +2,22 @@
 
 <br>
 
-Die Repo enthält eine einfache Nodejs-Anwendung mit Express.js, die die Verwendung der In-Memory-Datenbank 
+Die Repo enthält eine einfache Nodejs-Anwendung mit Express.js, die die Verwendung der In-Memory-Datenbank
 [Redis](https://redis.io/de/) demonstriert. In einer Redis-Datenbank werden Zähler für die Aufrufe der
 Produktseiten verwaltet sowie von einer externen REST-API abgerufene Wechselkurse für Fremdwährungen
-gecacht. 
+gecacht.
+
+<br>
+
+----
+
+## Screenshots ##
+
+<br>
+
+![Screenshot 1: Detailseite für Produkt](screenshot_1.png)
+
+![Screenshot 2: Umgerechneter Preis](screenshot_2.png)
 
 <br>
 
